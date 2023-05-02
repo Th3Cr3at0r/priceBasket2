@@ -1,4 +1,4 @@
-//import org.junit.Test
+
 import org.scalatest.funsuite.AnyFunSuite
 import org.junit.Test
 import org.scalatest.BeforeAndAfter
@@ -8,7 +8,9 @@ import scala.collection.immutable
 import scala.collection.immutable.Nil.:::
 import scala.collection.mutable.ListBuffer
 import scala.util.control.Breaks.{break, breakable}
-
+/** Contains all of the implementation tests to running the basket application
+ *
+ */
 class PriceBasketTests extends AnyFunSuite with BeforeAndAfter {
 
   val soup2 = new Item("soup", 0.65, 0)
@@ -100,8 +102,13 @@ class PriceBasketTests extends AnyFunSuite with BeforeAndAfter {
   }
 
 }
-
+/** Class for maintaining data about items
+ *
+ */
 case class Item(name: String, var price: Double, discount: Double){}
+/** Class for maintaining data about baskets
+ *
+ */
 case class Basket(item2: List[Item]) {
   var output = ""
   var hasNoDiscount=true
@@ -109,6 +116,9 @@ case class Basket(item2: List[Item]) {
   var items: ListBuffer[Item] = item2.to(ListBuffer)
   var discountItems: ListBuffer[Item]=ListBuffer()
 
+  /** Applies a discount to the basket if needed
+   *@return The new total after the discount has been applied
+   */
   def applyDiscount(): Double = {
     //output+="{\n"
     //items.foreach(tempItem=>items.contains(tempItem)
@@ -210,12 +220,19 @@ case class Basket(item2: List[Item]) {
     total
   }
 
-
+  /** Adds an items to the basket
+   *
+   * @param items the items that should be added to the basket
+   */
   def add( items: List[Item] ): Unit = {
     val items2 =items.to(ListBuffer)
     items2.foreach(x=>add(x))
   }
 
+  /** Adds a single item to the basket
+   *
+   * @param items the items that should be added to the basket
+   */
   def add(item: Item): Unit = {
     //println(item+":: Items")
     val itemX= item
